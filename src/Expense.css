@@ -1,0 +1,27 @@
+.Expense {
+  text-align: left;
+}
+
+.form-group {
+  width: 300px;
+  height: 70px;
+}
+
+.control-label {
+  width: 300px;
+  height: 20px;
+}
+
+input {
+  width: 300px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button{
+  margin: 13px;
+}
