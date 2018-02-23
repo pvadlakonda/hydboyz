@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Expense.css';
-import { Button, Grid, Row, Col, FormControl, FormGroup, ControlLabel } from 'react-bootstrap';
-import DatePicker from 'react-date-picker';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 
 export default class Export extends Component {
@@ -10,64 +10,65 @@ export default class Export extends Component {
         this.state = {
             date: moment()
         };
+        this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange(date) {
+        console.log(date);
         this.setState({
             date: date
         });
     }
 
-    onChange = date => this.setState({ date })
-
     render() {
         return (
-            <div className="Expense">
+            <div className="container Expense">
                 <form>
-                    <Grid>
-                        <Row>
-                            <FormGroup controlId="season">
-                                <ControlLabel>Season</ControlLabel>
-                                <FormControl componentClass="select" label="Season">
-                                    <option value="">Select season</option>
-                                    <option value="spring2018">Spring 2018</option>
-                                    <option value="summer2018">Summer 2018</option>
-                                </FormControl>
-                            </FormGroup>
-                        </Row>
-                        <Row>
-                            <FormGroup controlId="name">
-                                <ControlLabel>Name</ControlLabel>
-                                <FormControl id="name" type="text" label="Name" placeholder="Enter your name" />
-                            </FormGroup>
-                        </Row>
-                        <Row>
-                            <FormGroup controlId="amount">
-                                <ControlLabel>Amount</ControlLabel>
-                                <FormControl id="amount" type="text" label="Amount" placeholder="Enter amount" />
-                            </FormGroup>
-                        </Row>
-                        <Row>
-                            <FormGroup controlId="description">
-                                <ControlLabel>Description</ControlLabel>
-                                <FormControl id="description" type="text" label="Description" placeholder="Enter description" />
-                            </FormGroup>
-                        </Row>
-                        <Row>
-                            <FormGroup controlId="date">
-                                <ControlLabel>Date</ControlLabel>
-                                <DatePicker onChange={this.onChange} selected={this.state.date} />
-                            </FormGroup>
-                        </Row>
-                        <Row>
-                            <div class="btn-toolbar">
-                                <Button bsStyle="info"> Clear </Button>
-                                <Button bsStyle="primary"> Add </Button>
+                    <div className="row justify-content-md-center">
+                        <div className="col col-sm-4 form-group">
+                            <label htmlFor="season">Season</label>
+                            <select className="form-control" id="season">
+                                <option value="spring2018">Spring 2018</option>
+                                <option value="summer2018">Summer 2018</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="row justify-content-md-center">
+                        <div className="col col-sm-4 form-group">
+                            <label htmlFor="name">Name</label>
+                            <input type="text" className="form-control" id="name" placeholder="Your Name" />
+                        </div>
+                    </div>
+                    <div className="row justify-content-md-center">
+                        <div className="col col-sm-4 form-group">
+                            <label htmlFor="amount">Amount</label>
+                            <input type="text" className="form-control" id="amount" placeholder="Your amount" />
+                        </div>
+                    </div>
+                    <div className="row justify-content-md-center">
+                        <div className="col col-sm-4 form-group">
+                            <label htmlFor="description">Description</label>
+                            <input type="text" className="form-control" id="description" placeholder="Description" />
+                        </div>
+                    </div>
+                    <div className="row justify-content-md-center">
+                        <div className="col col-sm-4 form-group">
+                            <label htmlFor="date">Date</label>
+                            <DatePicker onChange={this.handleChange} selected={this.state.date} />
+                        </div>
+                    </div>
+                    <div className="row justify-content-md-center">
+                        <div className="col col-sm-4 btn-toolbar" role="toolbar">
+                            <div className="btn-group mr-2" role="group">
+                                <button type="button" className="btn btn-secondary">Clear</button>
                             </div>
-                        </Row>
-                    </Grid>
+                            <div className="btn-group" role="group">
+                                <button type="button" className="btn btn-primary">Add</button>
+                            </div>
+                        </div>
+                    </div>
                 </form>
-            </div>
+            </div >
         );
     }
 }
