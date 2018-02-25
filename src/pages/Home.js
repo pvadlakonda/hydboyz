@@ -10,7 +10,7 @@ export default class Home extends Component {
                 <div className="jumbotron jumbotron-fluid">
                     <div className="container">
                         <h1>HyderabadBoyz</h1>
-                        <p class="lead">Add your expenses</p>
+                        <p className="lead">Add your expenses</p>
                     </div>
                 </div>
                 <AddExpense /> <br />
