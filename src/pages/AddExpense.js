@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import './Expense.css';
+import './AddExpense.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 
-export default class Expense extends Component {
+export default class AddExpense extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -22,7 +22,7 @@ export default class Expense extends Component {
 
     render() {
         return (
-            <div className="Expense">
+            <div className="AddExpense">
                 <form>
                     <div className="row justify-content-md-center">
                         <div className="col col-sm-4 form-group">
