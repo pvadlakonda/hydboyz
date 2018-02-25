@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 
-export default class Export extends Component {
+export default class Expense extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -22,7 +22,7 @@ export default class Export extends Component {
 
     render() {
         return (
-            <div className="container Expense">
+            <div className="Expense">
                 <form>
                     <div className="row justify-content-md-center">
                         <div className="col col-sm-4 form-group">
@@ -32,33 +32,27 @@ export default class Export extends Component {
                                 <option value="summer2018">Summer 2018</option>
                             </select>
                         </div>
-                    </div>
-                    <div className="row justify-content-md-center">
                         <div className="col col-sm-4 form-group">
-                            <label htmlFor="name">Name</label>
-                            <input type="text" className="form-control" id="name" placeholder="Your Name" />
+                            <label htmlFor="date">Date</label>
+                            <DatePicker onChange={this.handleChange} selected={this.state.date} />
                         </div>
-                    </div>
-                    <div className="row justify-content-md-center">
-                        <div className="col col-sm-4 form-group">
+                        <div className="col col-sm-2 form-group">
                             <label htmlFor="amount">Amount</label>
                             <input type="text" className="form-control" id="amount" placeholder="Your amount" />
                         </div>
                     </div>
                     <div className="row justify-content-md-center">
                         <div className="col col-sm-4 form-group">
+                            <label htmlFor="name">Name</label>
+                            <input type="text" className="form-control" id="name" placeholder="Your Name" />
+                        </div>
+                        <div className="col col-sm-8 form-group">
                             <label htmlFor="description">Description</label>
                             <input type="text" className="form-control" id="description" placeholder="Description" />
                         </div>
                     </div>
                     <div className="row justify-content-md-center">
-                        <div className="col col-sm-4 form-group">
-                            <label htmlFor="date">Date</label>
-                            <DatePicker onChange={this.handleChange} selected={this.state.date} />
-                        </div>
-                    </div>
-                    <div className="row justify-content-md-center">
-                        <div className="col col-sm-4 btn-toolbar" role="toolbar">
+                        <div className="col col-sm-6 btn-toolbar" role="toolbar">
                             <div className="btn-group mr-2" role="group">
                                 <button type="button" className="btn btn-secondary">Clear</button>
                             </div>
