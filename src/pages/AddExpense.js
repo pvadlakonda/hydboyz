@@ -4,51 +4,82 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 
+const initialState = {
+    season: '',
+    date: moment(),
+    amount: '',
+    name: '',
+    description: ''
+};
+
 export default class AddExpense extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            date: moment()
-        };
+        this.state = initialState;
         this.handleChange = this.handleChange.bind(this);
+        this.handleDateChange = this.handleDateChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.reset = this.reset.bind(this);
     }
 
-    handleChange(date) {
-        console.log(date);
+    handleSubmit(event) {
+        console.log(this.state);
+        event.preventDefault();
+    }
+    handleChange(event) {
+        this.setState({ [event.target.id]: event.target.value });
+    }
+    handleDateChange(date) {
         this.setState({
             date: date
         });
+    }
+    reset() {
+        this.setState(initialState);
     }
 
     render() {
         return (
             <div className="AddExpense">
-                <form>
+                <form onSubmit={this.handleSubmit}>
                     <div className="row justify-content-md-center">
                         <div className="col col-sm-4 form-group">
                             <label htmlFor="season">Season</label>
-                            <select className="form-control" id="season">
+                            <select className="form-control" value={this.state.season} id="season" onChange={this.handleChange}>
+                                <option value="">Select season</option>
                                 <option value="spring2018">Spring 2018</option>
                                 <option value="summer2018">Summer 2018</option>
                             </select>
                         </div>
                         <div className="col col-sm-4 form-group">
                             <label htmlFor="date">Date</label>
-                            <DatePicker onChange={this.handleChange} selected={this.state.date} />
+                            <DatePicker id="date" onChange={this.handleDateChange} selected={this.state.date} />
                         </div>
-                        <InputDiv class="col col-sm-2 form-group" id="amount" label="Amount" placeholder="Enter Your Amount" />
+                        <div className="col col-sm-2 form-group" >
+                            <label htmlFor="amount">Amount</label>
+                            <input type="text" value={this.state.amount} onChange={this.handleChange} className="form-control" id="amount" placeholder="Enter Amount" />
+                        </div>
+                        {/* <InputDiv value={this.state.amount} class="col col-sm-2 form-group" id="amount" label="Amount" placeholder="Enter Your Amount" /> */}
                     </div>
                     <div className="row justify-content-md-center">
-                        <InputDiv class="col col-sm-4 form-group" id="name" label="Name" placeholder="Enter Your Name" />
-                        <InputDiv class="col col-sm-8 form-group" id="description" label="Description" placeholder="Description" />
+                        <div className="col col-sm-4 form-group" >
+                            <label htmlFor="name">Name</label>
+                            <input type="text" style={{ width: 345 }} value={this.state.name} onChange={this.handleChange} className="form-control" id="name" placeholder="Enter Name" />
+                        </div>
+                        <div className="col col-sm-8 form-group" >
+                            <label htmlFor="description">Description</label>
+                            <input type="text" value={this.state.description} onChange={this.handleChange} className="form-control" id="description" placeholder="Enter Description" />
+                        </div>
+                        {/* <InputDiv class="col col-sm-4 form-group" id="name" label="Name" placeholder="Enter Your Name" />
+                        <InputDiv class="col col-sm-8 form-group" id="description" label="Description" placeholder="Description" /> */}
                     </div>
                     <div className="row justify-content-md-center">
                         <div className="col col-sm-6 btn-toolbar" role="toolbar">
                             <div className="btn-group mr-2" role="group">
-                                <button type="button" className="btn btn-secondary">Clear</button>
+                                <button type="reset" onClick={this.reset} className="btn btn-secondary">Clear</button>
                             </div>
                             <div className="btn-group" role="group">
-                                <button type="button" className="btn btn-primary">Add</button>
+                                <button type="submit" className="btn btn-primary">Add</button>
                             </div>
                         </div>
                     </div>
@@ -58,11 +89,11 @@ export default class AddExpense extends Component {
     }
 }
 
-function InputDiv(props) {
-    return (
-        <div className={props.class}>
-            <label htmlFor={props.id}>{props.label}</label>
-            <input type="text" className="form-control" id={props.id} placeholder={props.placeholder} />
-        </div>
-    );
-}
+// function InputDiv(props) {
+//     return (
+//         <div className={props.class}>
+//             <label htmlFor={props.id}>{props.label}</label>
+//             <input type="text" value={props.value} className="form-control" id={props.id} placeholder={props.placeholder} />
+//         </div>
+//     );
+// }
