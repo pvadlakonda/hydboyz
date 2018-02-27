@@ -4,6 +4,14 @@ import AddExpense from './AddExpense';
 import ExpenseTable from './ExpenseTable';
 
 export default class Home extends Component {
+    state = {
+        submittedData: {}
+    };
+
+    submittedData = (fields) => {
+        // console.log(fields);
+        this.setState({ submittedData: fields });
+    }
     render() {
         return (
             <div>
@@ -13,8 +21,9 @@ export default class Home extends Component {
                         <p className="lead">Add your expenses</p>
                     </div>
                 </div>
-                <AddExpense /> <br />
-                <ExpenseTable />
+                <AddExpense submittedData={fields => this.submittedData(fields)} /> <br />
+                <p>{JSON.stringify(this.state.submittedData)}</p>
+                <ExpenseTable submittedData={JSON.stringify(this.state.submittedData)} />
             </div>
         );
     }

@@ -23,8 +23,10 @@ export default class AddExpense extends Component {
     }
 
     handleSubmit(event) {
-        console.log(this.state);
+        // console.log(this.state);
         event.preventDefault();
+        this.props.submittedData(this.state);
+        this.reset();
     }
     handleChange(event) {
         this.setState({ [event.target.id]: event.target.value });
