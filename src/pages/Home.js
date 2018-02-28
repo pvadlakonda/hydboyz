@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './Home.css';
 import AddExpense from './AddExpense';
-import ExpenseTable from './ExpenseTable';
+// import ExpenseTable from './ExpenseTable';
+import PaginationTable from './DefaultPaginationTable';
 
 export default class Home extends Component {
     state = {
@@ -23,7 +24,8 @@ export default class Home extends Component {
                 </div>
                 <AddExpense submittedData={fields => this.submittedData(fields)} /> <br />
                 <p>{JSON.stringify(this.state.submittedData)}</p>
-                <ExpenseTable submittedData={JSON.stringify(this.state.submittedData)} />
+                {/* <ExpenseTable submittedData={JSON.stringify(this.state.submittedData)} /> */}
+                <PaginationTable submittedData={this.state.submittedData} />
             </div>
         );
     }
