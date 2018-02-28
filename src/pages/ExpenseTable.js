@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './ExpenseTable.css';
+import './myStyles.css';
 
 export default class ExpenseTable extends Component {
     constructor(props) {
@@ -23,7 +23,7 @@ export default class ExpenseTable extends Component {
         });
         return (
             <div className="table-responsive">
-                <table className="ExpenseTable table table-sm">
+                <table className="text-left-align table table-sm">
                     <thead>
                         <tr>
                             <th scope="col">#</th>

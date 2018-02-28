@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Home.css';
+import './myStyles.css';
 import AddExpense from './AddExpense';
 // import ExpenseTable from './ExpenseTable';
 import PaginationTable from './DefaultPaginationTable';

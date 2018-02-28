@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './AddExpense.css';
+import './myStyles.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
@@ -42,7 +42,7 @@ export default class AddExpense extends Component {
 
     render() {
         return (
-            <div className="AddExpense">
+            <div className="text-left-align">
                 <form onSubmit={this.handleSubmit}>
                     <div className="row justify-content-md-center">
                         <div className="col col-sm-4 form-group">
