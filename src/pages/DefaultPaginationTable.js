@@ -4,38 +4,44 @@ import { BootstrapTable, TableHeaderColumn, ExportCSVButton } from 'react-bootst
 import './../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import moment from 'moment';
 
-const items = [];
-
-function addDefaultItems(quantity) {
-    for (let i = 0; i < quantity; i++) {
-        items.push({
-            id: i + 1,
-            season: 'Season',
-            date: '1/24/2018',
-            amount: '25',
-            name: 'Praveen ',
-            description: 'Drinks'
-        });
-    }
-}
-
-function addItem(submittedData) {
-    if (Object.getOwnPropertyNames(submittedData).length === 0 || submittedData.name === '') {
-        return;
-    }
-    items.push({
-        id: items.length + 1,
-        season: submittedData.season,
-        date: moment(submittedData.date).format('MM/DD/YYYY'),
-        amount: submittedData.amount,
-        name: submittedData.name,
-        description: submittedData.description
-    });
-}
-
 export default class DefaultPaginationTable extends React.Component {
+    items = [];
+
     componentWillMount() {
-        addDefaultItems(5);
+        this.loadItems(50);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
+        this.addItem(nextProps.submittedData);
+    }
+
+    loadItems(quantity) {
+        for (let i = 0; i < quantity; i++) {
+            this.items.push({
+                id: i + 1,
+                season: 'Season',
+                date: '1/24/2018',
+                amount: '25',
+                name: 'Praveen ',
+                description: 'Drinks'
+            });
+        }
+    }
+
+    addItem(submittedData) {
+        if (Object.getOwnPropertyNames(submittedData).length === 0 || submittedData.name === '') {
+            return;
+        }
+        var newItem = {
+            id: this.items.length + 1,
+            season: submittedData.season,
+            date: moment(submittedData.date).format('MM/DD/YYYY'),
+            amount: submittedData.amount,
+            name: submittedData.name,
+            description: submittedData.description
+        };
+        this.items.push(newItem);
     }
 
     handleExportCSVButtonClick = (onClick) => {
@@ -48,28 +54,26 @@ export default class DefaultPaginationTable extends React.Component {
                 btnText='Export Items'
                 btnContextual='btn-info'
                 className='my-custom-class'
-                // btnGlyphicon='glyphicon-edit'
                 onClick={e => this.handleExportCSVButtonClick(onClick)} />
         );
     }
 
     render() {
         const options = {
-            sizePerPage: 20,
+            defaultSortName: 'id',
+            defaultSortOrder: 'desc',
+            sizePerPage: 10,
             exportCSVBtn: this.createCustomExportCSVButton
         };
-
-        console.log(this.props.submittedData);
-        addItem(this.props.submittedData);
 
         return (
             <div className="text-left-align">
                 <BootstrapTable
-                    data={items}
+                    data={this.items}
                     pagination
                     options={options}
                     exportCSV >
-                    <TableHeaderColumn dataField='id' isKey={true}>#</TableHeaderColumn>
+                    <TableHeaderColumn dataField='id' isKey={true} dataSort={true}>#</TableHeaderColumn>
                     <TableHeaderColumn dataField='season'>Season</TableHeaderColumn>
                     <TableHeaderColumn dataField='date'>Date</TableHeaderColumn>
                     <TableHeaderColumn dataField='amount'>Amount</TableHeaderColumn>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './myStyles.css';
 import AddExpense from './AddExpense';
-// import ExpenseTable from './ExpenseTable';
 import PaginationTable from './DefaultPaginationTable';
 
 export default class Home extends Component {
@@ -10,7 +9,6 @@ export default class Home extends Component {
     };
 
     submittedData = (fields) => {
-        // console.log(fields);
         this.setState({ submittedData: fields });
     }
     render() {
@@ -23,8 +21,6 @@ export default class Home extends Component {
                     </div>
                 </div>
                 <AddExpense submittedData={fields => this.submittedData(fields)} /> <br />
-                <p>{JSON.stringify(this.state.submittedData)}</p>
-                {/* <ExpenseTable submittedData={JSON.stringify(this.state.submittedData)} /> */}
                 <PaginationTable submittedData={this.state.submittedData} />
             </div>
         );

@@ -23,7 +23,6 @@ export default class AddExpense extends Component {
     }
 
     handleSubmit(event) {
-        // console.log(this.state);
         event.preventDefault();
         this.props.submittedData(this.state);
         this.reset();
@@ -61,7 +60,6 @@ export default class AddExpense extends Component {
                             <label htmlFor="amount">Amount</label>
                             <input type="text" value={this.state.amount} onChange={this.handleChange} className="form-control" id="amount" placeholder="Enter Amount" />
                         </div>
-                        {/* <InputDiv value={this.state.amount} class="col col-sm-2 form-group" id="amount" label="Amount" placeholder="Enter Your Amount" /> */}
                     </div>
                     <div className="row justify-content-md-center">
                         <div className="col col-sm-4 form-group" >
@@ -72,8 +70,6 @@ export default class AddExpense extends Component {
                             <label htmlFor="description">Description</label>
                             <input type="text" value={this.state.description} onChange={this.handleChange} className="form-control" id="description" placeholder="Enter Description" />
                         </div>
-                        {/* <InputDiv class="col col-sm-4 form-group" id="name" label="Name" placeholder="Enter Your Name" />
-                        <InputDiv class="col col-sm-8 form-group" id="description" label="Description" placeholder="Description" /> */}
                     </div>
                     <div className="row justify-content-md-center">
                         <div className="col col-sm-6 btn-toolbar" role="toolbar">
@@ -86,16 +82,7 @@ export default class AddExpense extends Component {
                         </div>
                     </div>
                 </form>
-            </div >
+            </div>
         );
     }
 }
-
-// function InputDiv(props) {
-//     return (
-//         <div className={props.class}>
-//             <label htmlFor={props.id}>{props.label}</label>
-//             <input type="text" value={props.value} className="form-control" id={props.id} placeholder={props.placeholder} />
-//         </div>
-//     );
-// }
