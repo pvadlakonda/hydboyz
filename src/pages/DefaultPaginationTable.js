@@ -3,12 +3,13 @@ import './myStyles.css';
 import { BootstrapTable, TableHeaderColumn, ExportCSVButton } from 'react-bootstrap-table';
 import './../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import moment from 'moment';
+import Workbook from 'react-excel-workbook';
 
 export default class DefaultPaginationTable extends React.Component {
     items = [];
 
     componentWillMount() {
-        this.loadItems(50);
+        this.loadItems(5);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -51,9 +52,10 @@ export default class DefaultPaginationTable extends React.Component {
     createCustomExportCSVButton = (onClick) => {
         return (
             <ExportCSVButton
-                btnText='Export Items'
+                btnText='Export to csv'
                 btnContextual='btn-info'
                 className='my-custom-class'
+                btnGlyphicon='glyphicon glyphicon-export'
                 onClick={e => this.handleExportCSVButtonClick(onClick)} />
         );
     }
@@ -72,7 +74,8 @@ export default class DefaultPaginationTable extends React.Component {
                     data={this.items}
                     pagination
                     options={options}
-                    exportCSV >
+                    exportCSV
+                    csvFileName='table-export'>
                     <TableHeaderColumn dataField='id' isKey={true} dataSort={true}>#</TableHeaderColumn>
                     <TableHeaderColumn dataField='season'>Season</TableHeaderColumn>
                     <TableHeaderColumn dataField='date'>Date</TableHeaderColumn>
@@ -80,6 +83,28 @@ export default class DefaultPaginationTable extends React.Component {
                     <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
                     <TableHeaderColumn dataField='description'>Description</TableHeaderColumn>
                 </BootstrapTable>
+
+                <ExportComponent data={this.items} />
+            </div>
+        );
+    }
+}
+
+export class ExportComponent extends React.Component {
+
+    render() {
+        return (
+            <div className="row text-center justify-content-md-center" style={{ marginBottom: '10px' }}>
+                <Workbook filename="table-data.xlsx" element={<button className="btn btn-primary">Export to excel</button>}>
+                    <Workbook.Sheet data={this.props.data} name="Sheet A">
+                        <Workbook.Column label="ID" value="id" />
+                        <Workbook.Column label="Season" value="season" />
+                        <Workbook.Column label="Date" value="date" />
+                        <Workbook.Column label="Amount" value="id" />
+                        <Workbook.Column label="Name" value="season" />
+                        <Workbook.Column label="Description" value="date" />
+                    </Workbook.Sheet>
+                </Workbook>
             </div>
         );
     }
