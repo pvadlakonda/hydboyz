@@ -4,12 +4,13 @@ import { BootstrapTable, TableHeaderColumn, ExportCSVButton } from 'react-bootst
 import './../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import moment from 'moment';
 import Workbook from 'react-excel-workbook';
+import XLSX from 'xlsx';
 
 export default class DefaultPaginationTable extends React.Component {
     items = [];
 
     componentWillMount() {
-        this.loadItems(5);
+        this.loadItems(1);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -28,6 +29,35 @@ export default class DefaultPaginationTable extends React.Component {
                 description: 'Drinks'
             });
         }
+    }
+
+    fileSelect(event) {
+        console.log(event.target.files[0].name);
+        var file = event.target.files[0];
+        var reader = new FileReader();
+        reader.readAsBinaryString(file);
+
+        reader.onload = function (event) {
+            var data = event.target.result;
+            var workbook = XLSX.read(data, {
+                type: 'binary'
+            });
+            var rows = [];
+            workbook.SheetNames.forEach(function (sheetName) {
+                var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+                var json_object = JSON.stringify(XL_row_object);
+                console.log(json_object);
+                rows.push(json_object);
+            })
+        };
+
+        rows.forEach(function (row) {
+            addItem(row);
+        });
+
+        reader.onerror = function (ex) {
+            console.log(ex);
+        };
     }
 
     addItem(submittedData) {
@@ -85,6 +115,12 @@ export default class DefaultPaginationTable extends React.Component {
                 </BootstrapTable>
 
                 <ExportComponent data={this.items} />
+
+                <div>
+                    <label className="btn btn-default btn-file">
+                        Browse <input type="file" onChange={this.fileSelect} />
+                    </label>
+                </div>
             </div>
         );
     }
