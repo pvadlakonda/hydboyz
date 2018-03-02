@@ -42,18 +42,17 @@ export default class DefaultPaginationTable extends React.Component {
             var workbook = XLSX.read(data, {
                 type: 'binary'
             });
-            var rows = [];
+            // var rows = [];
             workbook.SheetNames.forEach(function (sheetName) {
                 var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
                 var json_object = JSON.stringify(XL_row_object);
                 console.log(json_object);
-                rows.push(json_object);
+                // rows.push(json_object);
             })
         };
-
-        rows.forEach(function (row) {
-            addItem(row);
-        });
+        // rows.forEach(function (row) {
+        //     addItem(row);
+        // });
 
         reader.onerror = function (ex) {
             console.log(ex);
@@ -91,17 +90,32 @@ export default class DefaultPaginationTable extends React.Component {
     }
 
     render() {
+        return (
+            <div className="text-left-align">
+                <PaginationBootstrapTable data={this.items} exportCSVButton={this.createCustomExportCSVButton} />
+                <ExportComponent data={this.items} />
+                <div>
+                    <label className="btn btn-default btn-file">
+                        Browse <input type="file" onChange={this.fileSelect} />
+                    </label>
+                </div>
+            </div>
+        );
+    }
+}
+
+export class PaginationBootstrapTable extends React.Component {
+    render() {
         const options = {
             defaultSortName: 'id',
             defaultSortOrder: 'desc',
             sizePerPage: 10,
-            exportCSVBtn: this.createCustomExportCSVButton
+            exportCSVBtn: this.props.exportCSVButton
         };
-
         return (
-            <div className="text-left-align">
+            <div>
                 <BootstrapTable
-                    data={this.items}
+                    data={this.props.data}
                     pagination
                     options={options}
                     exportCSV
@@ -113,14 +127,6 @@ export default class DefaultPaginationTable extends React.Component {
                     <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
                     <TableHeaderColumn dataField='description'>Description</TableHeaderColumn>
                 </BootstrapTable>
-
-                <ExportComponent data={this.items} />
-
-                <div>
-                    <label className="btn btn-default btn-file">
-                        Browse <input type="file" onChange={this.fileSelect} />
-                    </label>
-                </div>
             </div>
         );
     }
