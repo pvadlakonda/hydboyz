@@ -72,17 +72,15 @@ export default class AddExpense extends Component {
                         </div>
                     </div>
                     <div className="row justify-content-md-center">
-                        <div className="col col-sm-6 btn-toolbar" role="toolbar">
-                            <div className="btn-group mr-2" role="group">
-                                <button type="reset" onClick={this.reset} className="btn btn-secondary">Clear</button>
-                            </div>
-                            <div className="btn-group" role="group">
-                                <button type="submit" className="btn btn-primary">Add</button>
-                            </div>
+                        <div className="btn-group mr-2" role="group">
+                            <button type="reset" onClick={this.reset} className="btn btn-secondary">Clear</button>
+                        </div>
+                        <div className="btn-group" role="group">
+                            <button type="submit" className="btn btn-primary">Add</button>
                         </div>
                     </div>
                 </form>
-            </div>
+            </div >
         );
     }
 }

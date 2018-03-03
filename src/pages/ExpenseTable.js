@@ -6,11 +6,11 @@ import moment from 'moment';
 import Workbook from 'react-excel-workbook';
 import ImportComponent from './ImportComponent';
 
-export default class DefaultPaginationTable extends React.Component {
+export default class ExpenseTable extends React.Component {
     items = [];
 
     componentWillMount() {
-        this.loadItems(1);
+        this.loadItems(15);
     }
 
     componentWillReceiveProps(nextProps) {

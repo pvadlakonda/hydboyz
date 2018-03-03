@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './myStyles.css';
 import AddExpense from './AddExpense';
-import PaginationTable from './DefaultPaginationTable';
+import ExpenseTable from './ExpenseTable';
 
 export default class Home extends Component {
     state = {
@@ -21,7 +21,7 @@ export default class Home extends Component {
                     </div>
                 </div>
                 <AddExpense submittedData={fields => this.submittedData(fields)} /> <br />
-                <PaginationTable submittedData={this.state.submittedData} />
+                <ExpenseTable submittedData={this.state.submittedData} />
             </div>
         );
     }

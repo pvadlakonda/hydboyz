@@ -10,3 +10,7 @@ input {
 button {
     width: 150px;
 } 
+
+.jumbotron {
+    background-color: lightskyblue
+}
