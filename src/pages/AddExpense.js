@@ -52,13 +52,13 @@ export default class AddExpense extends Component {
                                 <option value="summer2018">Summer 2018</option>
                             </select>
                         </div>
-                        <div className="col col-sm-4 form-group">
-                            <label htmlFor="date">Date</label>
-                            <DatePicker id="date" onChange={this.handleDateChange} selected={this.state.date} />
-                        </div>
                         <div className="col col-sm-2 form-group" >
                             <label htmlFor="amount">Amount</label>
                             <input type="text" value={this.state.amount} onChange={this.handleChange} className="form-control" id="amount" placeholder="Enter Amount" />
+                        </div>
+                        <div className="col col-sm-4 form-group">
+                            <label htmlFor="date">Date</label>
+                            <DatePicker id="date" onChange={this.handleDateChange} selected={this.state.date} />
                         </div>
                     </div>
                     <div className="row justify-content-md-center">

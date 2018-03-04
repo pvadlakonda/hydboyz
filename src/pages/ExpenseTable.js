@@ -1,16 +1,17 @@
 import React from 'react';
 import './myStyles.css';
-import { BootstrapTable, TableHeaderColumn, ExportCSVButton } from 'react-bootstrap-table';
+import { BootstrapTable, TableHeaderColumn, DeleteButton } from 'react-bootstrap-table';
 import './../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import moment from 'moment';
 import Workbook from 'react-excel-workbook';
 import ImportComponent from './ImportComponent';
 
+var deleteOn = false;
 export default class ExpenseTable extends React.Component {
     items = [];
 
     componentWillMount() {
-        this.loadItems(15);
+        this.loadItems(2);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -46,25 +47,25 @@ export default class ExpenseTable extends React.Component {
         this.items.push(newItem);
     }
 
-    handleExportCSVButtonClick = (onClick) => {
-        onClick();
-    }
-
-    createCustomExportCSVButton = (onClick) => {
-        return (
-            <ExportCSVButton
-                btnText='Export to csv'
-                btnContextual='btn-info'
-                className='my-custom-class'
-                btnGlyphicon='glyphicon glyphicon-export'
-                onClick={e => this.handleExportCSVButtonClick(onClick)} />
-        );
+    modifyTable() {
+        deleteOn = !deleteOn;
+        var elems = document.getElementsByClassName('react-bs-table-tool-bar');
+        elems[0].style.display = deleteOn ? 'block' : 'none';
+        
+        var checkboxes = document.getElementsByTagName('input');
+        for (var i = 0, element; element = checkboxes[i++];) {
+            if (element.type === "checkbox")
+            element.style.display = deleteOn ? 'block' : 'none';
+        }
     }
 
     render() {
         return (
             <div className="text-left-align">
-                <PaginationBootstrapTable data={this.items} exportCSVButton={this.createCustomExportCSVButton} />
+                <PaginationBootstrapTable data={this.items} />
+                <div>
+                 <button className="btn btn-primary" onClick={this.modifyTable}>Edit</button>
+                </div>
                 <ExportComponent data={this.items} />
                 <ImportComponent importRow={row => this.addItem(row)} />
             </div>
@@ -73,21 +74,39 @@ export default class ExpenseTable extends React.Component {
 }
 
 export class PaginationBootstrapTable extends React.Component {
+
+    createCustomDeleteButton = (onClick) => {
+        return (
+          <DeleteButton
+            btnText='Delete Selected'
+            btnContextual='btn-warning'
+            className='my-custom-class'
+            btnGlyphicon='glyphicon-edit'
+            onClick={ () => this.handleDeleteButtonClick(onClick) }
+            />
+        );
+    }
+    handleDeleteButtonClick = (onClick) => {
+        onClick();
+      }
     render() {
         const options = {
             defaultSortName: 'id',
             defaultSortOrder: 'desc',
             sizePerPage: 10,
-            exportCSVBtn: this.props.exportCSVButton
+            deleteBtn: this.createCustomDeleteButton
         };
+        const selectRowProp = {
+            mode: 'checkbox'
+          };
         return (
             <div>
                 <BootstrapTable
                     data={this.props.data}
                     pagination
                     options={options}
-                    exportCSV
-                    csvFileName='table-export'>
+                    deleteRow
+                    selectRow={ selectRowProp } >
                     <TableHeaderColumn dataField='id' isKey={true} dataSort={true}>#</TableHeaderColumn>
                     <TableHeaderColumn dataField='season'>Season</TableHeaderColumn>
                     <TableHeaderColumn dataField='date'>Date</TableHeaderColumn>

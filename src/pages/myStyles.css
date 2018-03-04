@@ -2,9 +2,8 @@
     text-align: left;
 }
 
-input {
-    width: 350px;
-    height: 40px;
+#date {
+    height: 40px;   
 }
 
 button {
@@ -14,3 +13,8 @@ button {
 .jumbotron {
     background-color: lightskyblue
 }
+
+.react-bs-table-tool-bar, input[type=checkbox] {
+    display: none
+}
+
