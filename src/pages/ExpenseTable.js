@@ -5,6 +5,7 @@ import './../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-al
 import moment from 'moment';
 import Workbook from 'react-excel-workbook';
 import ImportComponent from './ImportComponent';
+import MLabService from './../services/MLabService';
 
 var deleteOn = false;
 export default class ExpenseTable extends React.Component {
@@ -53,16 +54,21 @@ export default class ExpenseTable extends React.Component {
         elems[0].style.display = deleteOn ? 'block' : 'none';
         
         var checkboxes = document.getElementsByTagName('input');
-        for (var i = 0, element; element = checkboxes[i++];) {
+        for (let element of checkboxes) {
             if (element.type === "checkbox")
-            element.style.display = deleteOn ? 'block' : 'none';
+                element.style.display = deleteOn ? 'block' : 'none';
         }
+    }
+
+    mongoData = (data) => {
+        console.log(data);
     }
 
     render() {
         return (
             <div className="text-left-align">
                 <PaginationBootstrapTable data={this.items} />
+                <MLabService mongoData={data => this.mongoData(data)}/>
                 <div>
                  <button className="btn btn-primary" onClick={this.modifyTable}>Edit</button>
                 </div>
