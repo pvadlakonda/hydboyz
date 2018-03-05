@@ -17,6 +17,7 @@ export default class ExpenseTable extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         console.log(nextProps);
+        nextProps.submittedData.date = moment(nextProps.submittedData.date).format('MM/DD/YYYY');
         this.addItem(nextProps.submittedData);
     }
 
@@ -40,7 +41,7 @@ export default class ExpenseTable extends React.Component {
         var newItem = {
             id: this.items.length + 1,
             season: submittedData.season,
-            date: moment(submittedData.date).format('MM/DD/YYYY'),
+            date: submittedData.date,
             amount: submittedData.amount,
             name: submittedData.name,
             description: submittedData.description
