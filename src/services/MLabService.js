@@ -2,25 +2,21 @@ import React from 'react';
 import $ from 'jquery';
 
 const url = 'https://api.mlab.com/api/1/databases/hydboyz/collections/expenses?apiKey=2-byIVNo-oqo6Irfu3ywY1OkJW8GY_xh'
-export default class MLabService extends React.Component{
+export default class MLabService extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            mongoData:''
+            mongoData: ''
         };
-        this.loadExperiencesFromServer = this.loadExperiencesFromServer.bind(this)
+        this.loadFromDB = this.loadFromDB.bind(this)
     }
 
-    componentDidMount() {
-        this.loadExperiencesFromServer();
-
-        // this.setState({
-        //     mongoData: 'Service Data'
-        // })
+    componentWillMount() {
+        this.loadFromDB();
     }
 
-    loadExperiencesFromServer() {
+    loadFromDB() {
         $.ajax({
             dataType: "json",
             type: "GET",
@@ -28,16 +24,16 @@ export default class MLabService extends React.Component{
             success: (data) => {
                 this.setState({
                     mongoData: data
-                  })
-          
+                })
+
             }
         });
     }
 
     render() {
-        return(
+        return (
             <div>
-                 {this.props.mongoData(this.state.mongoData)}
+                {this.props.mongoData(this.state.mongoData)}
             </div>
         );
     }

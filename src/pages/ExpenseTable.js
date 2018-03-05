@@ -4,26 +4,28 @@ import { BootstrapTable, TableHeaderColumn, DeleteButton } from 'react-bootstrap
 import './../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import moment from 'moment';
 import Workbook from 'react-excel-workbook';
-import ImportComponent from './ImportComponent';
+// import ImportComponent from './ImportComponent';
 import MLabService from './../services/MLabService';
 
 var deleteOn = false;
 export default class ExpenseTable extends React.Component {
-    items = [];
+    state = {
+        items: []
+    };
 
     componentWillMount() {
         this.loadItems(2);
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
         nextProps.submittedData.date = moment(nextProps.submittedData.date).format('MM/DD/YYYY');
         this.addItem(nextProps.submittedData);
     }
 
     loadItems(quantity) {
         for (let i = 0; i < quantity; i++) {
-            this.items.push({
+
+            this.state.items.push({
                 id: i + 1,
                 season: 'Season',
                 date: '1/24/2018',
@@ -35,25 +37,26 @@ export default class ExpenseTable extends React.Component {
     }
 
     addItem(submittedData) {
+        console.log(submittedData);
         if (Object.getOwnPropertyNames(submittedData).length === 0 || submittedData.name === '') {
             return;
         }
         var newItem = {
-            id: this.items.length + 1,
+            id: this.state.items.length + 1,
             season: submittedData.season,
             date: submittedData.date,
             amount: submittedData.amount,
             name: submittedData.name,
             description: submittedData.description
         };
-        this.items.push(newItem);
+        this.state.items.push(newItem);
     }
 
     modifyTable() {
         deleteOn = !deleteOn;
         var elems = document.getElementsByClassName('react-bs-table-tool-bar');
         elems[0].style.display = deleteOn ? 'block' : 'none';
-        
+
         var checkboxes = document.getElementsByTagName('input');
         for (let element of checkboxes) {
             if (element.type === "checkbox")
@@ -61,20 +64,22 @@ export default class ExpenseTable extends React.Component {
         }
     }
 
-    mongoData = (data) => {
-        console.log(data);
+    mongoData = (dbRows) => {
+        for (var i = 0; i < dbRows.length; i++) {
+            this.addItem(dbRows[i]);
+        }
     }
 
     render() {
         return (
             <div className="text-left-align">
-                <PaginationBootstrapTable data={this.items} />
-                <MLabService mongoData={data => this.mongoData(data)}/>
+                <PaginationBootstrapTable data={this.state.items} />
+                <MLabService mongoData={data => this.mongoData(data)} />
                 <div>
-                 <button className="btn btn-primary" onClick={this.modifyTable}>Edit</button>
+                    <button className="btn btn-primary" onClick={this.modifyTable}>Edit</button>
                 </div>
-                <ExportComponent data={this.items} />
-                <ImportComponent importRow={row => this.addItem(row)} />
+                <ExportComponent data={this.state.items} />
+                {/* <ImportComponent importRow={row => this.addItem(row)} /> */}
             </div>
         );
     }
@@ -84,18 +89,18 @@ export class PaginationBootstrapTable extends React.Component {
 
     createCustomDeleteButton = (onClick) => {
         return (
-          <DeleteButton
-            btnText='Delete Selected'
-            btnContextual='btn-warning'
-            className='my-custom-class'
-            btnGlyphicon='glyphicon-edit'
-            onClick={ () => this.handleDeleteButtonClick(onClick) }
+            <DeleteButton
+                btnText='Delete Selected'
+                btnContextual='btn-warning'
+                className='my-custom-class'
+                btnGlyphicon='glyphicon-edit'
+                onClick={() => this.handleDeleteButtonClick(onClick)}
             />
         );
     }
     handleDeleteButtonClick = (onClick) => {
         onClick();
-      }
+    }
     render() {
         const options = {
             defaultSortName: 'id',
@@ -105,7 +110,7 @@ export class PaginationBootstrapTable extends React.Component {
         };
         const selectRowProp = {
             mode: 'checkbox'
-          };
+        };
         return (
             <div>
                 <BootstrapTable
@@ -113,7 +118,7 @@ export class PaginationBootstrapTable extends React.Component {
                     pagination
                     options={options}
                     deleteRow
-                    selectRow={ selectRowProp } >
+                    selectRow={selectRowProp} >
                     <TableHeaderColumn dataField='id' isKey={true} dataSort={true}>#</TableHeaderColumn>
                     <TableHeaderColumn dataField='season'>Season</TableHeaderColumn>
                     <TableHeaderColumn dataField='date'>Date</TableHeaderColumn>
