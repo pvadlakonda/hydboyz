@@ -15,7 +15,7 @@ export default class ExpenseHome extends React.Component {
         this.loadFromDB();
     }
 
-    submittedData = (fields) => {
+    submitData = (fields) => {
         this.setState({ submittedData: fields });
     }
 
@@ -41,7 +41,7 @@ export default class ExpenseHome extends React.Component {
                         <p className="lead">Add your expenses</p>
                     </div>
                 </div>
-                <AddExpense submittedData={fields => this.submittedData(fields)} /> <br />
+                <AddExpense submittedData={fields => this.submitData(fields)} /> <br />
                 <ExpenseTable submittedData={this.state.submittedData} />
                 {/* <MLabService mongoData={data => this.mongoData(data)} /> */}
             </div>

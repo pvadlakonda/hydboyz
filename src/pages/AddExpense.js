@@ -6,7 +6,8 @@ import moment from 'moment';
 
 const initialState = {
     season: '',
-    date: moment(),
+    dateObj: moment(),
+    date: moment().format('MM/DD/YYYY'),
     amount: '',
     name: '',
     description: ''
@@ -30,9 +31,10 @@ export default class AddExpense extends Component {
     handleChange(event) {
         this.setState({ [event.target.id]: event.target.value });
     }
-    handleDateChange(date) {
+    handleDateChange(dateObj) {
         this.setState({
-            date: date
+            dateObj: dateObj,
+            date: moment(dateObj).format('MM/DD/YYYY')
         });
     }
     reset() {
@@ -58,7 +60,7 @@ export default class AddExpense extends Component {
                         </div>
                         <div className="col col-sm-4 form-group">
                             <label htmlFor="date">Date</label>
-                            <DatePicker id="date" onChange={this.handleDateChange} selected={this.state.date} />
+                            <DatePicker id="date" maxDate={moment()} onChange={this.handleDateChange} selected={this.state.dateObj} />
                         </div>
                     </div>
                     <div className="row justify-content-md-center">

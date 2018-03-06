@@ -2,7 +2,6 @@ import React from 'react';
 import './myStyles.css';
 import { BootstrapTable, TableHeaderColumn, DeleteButton } from 'react-bootstrap-table';
 import './../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
-import moment from 'moment';
 import Workbook from 'react-excel-workbook';
 // import ImportComponent from './ImportComponent';
 
@@ -13,7 +12,6 @@ export default class ExpenseTable extends React.Component {
     };
 
     componentWillReceiveProps(nextProps) {
-        nextProps.submittedData.date = moment(nextProps.submittedData.date).format('MM/DD/YYYY');
         this.addItem(nextProps.submittedData);
     }
 
