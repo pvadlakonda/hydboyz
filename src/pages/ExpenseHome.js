@@ -8,7 +8,8 @@ import $ from 'jquery';
 const url = 'https://api.mlab.com/api/1/databases/hydboyz/collections/expenses?apiKey=2-byIVNo-oqo6Irfu3ywY1OkJW8GY_xh'
 export default class ExpenseHome extends React.Component {
     state = {
-        submittedData: {}
+        submittedData: {},
+        existingData: {}
     };
 
     componentDidMount() {
@@ -25,9 +26,7 @@ export default class ExpenseHome extends React.Component {
             type: "GET",
             url: url,
             success: (data) => {
-                for (var i = 0; i < data.length; i++) {
-                    this.setState({ submittedData: data[i] });
-                }
+                this.setState({ existingData: data })
             }
         });
     }
@@ -42,7 +41,7 @@ export default class ExpenseHome extends React.Component {
                     </div>
                 </div>
                 <AddExpense submittedData={fields => this.submitData(fields)} /> <br />
-                <ExpenseTable submittedData={this.state.submittedData} />
+                <ExpenseTable submittedData={this.state.submittedData} existingData={this.state.existingData} />
                 {/* <MLabService mongoData={data => this.mongoData(data)} /> */}
             </div>
         );

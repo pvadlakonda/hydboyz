@@ -73,7 +73,7 @@ export default class AddExpense extends Component {
                             <input type="text" value={this.state.description} onChange={this.handleChange} className="form-control" id="description" placeholder="Enter Description" />
                         </div>
                     </div>
-                    <div className="row justify-content-md-center">
+                    <div className="text-center justify-content-md-center">
                         <div className="btn-group mr-2" role="group">
                             <button type="reset" onClick={this.reset} className="btn btn-secondary">Clear</button>
                         </div>

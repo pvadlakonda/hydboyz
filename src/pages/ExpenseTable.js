@@ -12,10 +12,18 @@ export default class ExpenseTable extends React.Component {
     };
 
     componentWillReceiveProps(nextProps) {
-        this.addItem(nextProps.submittedData);
+        if (this.state.items.length === 0)
+            this.loadDBData(nextProps.existingData);
+        this.addExpense(nextProps.submittedData);
     }
 
-    addItem(submittedData) {
+    loadDBData(data) {
+        for (var i = 0; i < data.length; i++) {
+            this.addExpense(data[i]);
+        }
+    }
+
+    addExpense(submittedData) {
         console.log(submittedData);
         if (Object.getOwnPropertyNames(submittedData).length === 0 || submittedData.name === '') {
             return;
@@ -43,22 +51,15 @@ export default class ExpenseTable extends React.Component {
         }
     }
 
-    mongoData = (dbRows) => {
-        for (var i = 0; i < dbRows.length; i++) {
-            this.addItem(dbRows[i]);
-        }
-    }
-
     render() {
         return (
             <div className="text-left-align">
                 <PaginationBootstrapTable data={this.state.items} />
-                {/* <MLabService mongoData={data => this.mongoData(data)} /> */}
-                <div>
+                {/* <div>
                     <button className="btn btn-primary" onClick={this.modifyTable}>Edit</button>
-                </div>
+                </div> */}
                 <ExportComponent data={this.state.items} />
-                {/* <ImportComponent importRow={row => this.addItem(row)} /> */}
+                {/* <ImportComponent importRow={row => this.addExpense(row)} /> */}
             </div>
         );
     }
@@ -88,7 +89,8 @@ export class PaginationBootstrapTable extends React.Component {
             deleteBtn: this.createCustomDeleteButton
         };
         const selectRowProp = {
-            mode: 'checkbox'
+            mode: 'checkbox',
+            hideSelectColumn: true
         };
         return (
             <div>
@@ -98,12 +100,12 @@ export class PaginationBootstrapTable extends React.Component {
                     options={options}
                     deleteRow
                     selectRow={selectRowProp} >
-                    <TableHeaderColumn dataField='id' isKey={true} dataSort={true}>#</TableHeaderColumn>
-                    <TableHeaderColumn dataField='season'>Season</TableHeaderColumn>
-                    <TableHeaderColumn dataField='date'>Date</TableHeaderColumn>
-                    <TableHeaderColumn dataField='amount'>Amount</TableHeaderColumn>
-                    <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
-                    <TableHeaderColumn dataField='description'>Description</TableHeaderColumn>
+                    <TableHeaderColumn width={'25'} dataField='id' isKey={true} dataSort={true}>#</TableHeaderColumn>
+                    <TableHeaderColumn width={'100'} dataField='season'>Season</TableHeaderColumn>
+                    <TableHeaderColumn width={'100'} dataField='date'>Date</TableHeaderColumn>
+                    <TableHeaderColumn width={'75'} dataField='amount'>Amount</TableHeaderColumn>
+                    <TableHeaderColumn width={'100'} dataField='name'>Name</TableHeaderColumn>
+                    <TableHeaderColumn width={'150'} dataField='description'>Description</TableHeaderColumn>
                 </BootstrapTable>
             </div>
         );
@@ -114,7 +116,7 @@ export class ExportComponent extends React.Component {
 
     render() {
         return (
-            <div className="row text-center justify-content-md-center" style={{ marginBottom: '10px' }}>
+            <div className="text-center justify-content-md-center" style={{ marginBottom: '10px' }}>
                 <Workbook filename="table-data.xlsx" element={<button className="btn btn-primary">Export to excel</button>}>
                     <Workbook.Sheet data={this.props.data} name="Sheet A">
                         <Workbook.Column label="ID" value="id" />
