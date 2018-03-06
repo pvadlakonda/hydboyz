@@ -5,7 +5,6 @@ import './../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-al
 import moment from 'moment';
 import Workbook from 'react-excel-workbook';
 // import ImportComponent from './ImportComponent';
-import MLabService from './../services/MLabService';
 
 var deleteOn = false;
 export default class ExpenseTable extends React.Component {
@@ -13,27 +12,9 @@ export default class ExpenseTable extends React.Component {
         items: []
     };
 
-    componentWillMount() {
-        this.loadItems(2);
-    }
-
     componentWillReceiveProps(nextProps) {
         nextProps.submittedData.date = moment(nextProps.submittedData.date).format('MM/DD/YYYY');
         this.addItem(nextProps.submittedData);
-    }
-
-    loadItems(quantity) {
-        for (let i = 0; i < quantity; i++) {
-
-            this.state.items.push({
-                id: i + 1,
-                season: 'Season',
-                date: '1/24/2018',
-                amount: '25',
-                name: 'Praveen ',
-                description: 'Drinks'
-            });
-        }
     }
 
     addItem(submittedData) {
@@ -74,7 +55,7 @@ export default class ExpenseTable extends React.Component {
         return (
             <div className="text-left-align">
                 <PaginationBootstrapTable data={this.state.items} />
-                <MLabService mongoData={data => this.mongoData(data)} />
+                {/* <MLabService mongoData={data => this.mongoData(data)} /> */}
                 <div>
                     <button className="btn btn-primary" onClick={this.modifyTable}>Edit</button>
                 </div>
