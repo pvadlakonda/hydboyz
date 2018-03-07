@@ -8,35 +8,37 @@ import Workbook from 'react-excel-workbook';
 var deleteOn = false;
 export default class ExpenseTable extends React.Component {
     state = {
-        items: []
+        expenses: []
     };
 
     componentWillReceiveProps(nextProps) {
-        if (this.state.items.length === 0)
-            this.loadDBData(nextProps.existingData);
-        this.addExpense(nextProps.submittedData);
+        this.loadDBData(nextProps.dbData);
     }
 
     loadDBData(data) {
+        var dbItems = [];
         for (var i = 0; i < data.length; i++) {
-            this.addExpense(data[i]);
+            dbItems.push(this.addExpense(data[i], i));
         }
+        this.setState({
+            expenses: dbItems
+        })
     }
 
-    addExpense(submittedData) {
+    addExpense(submittedData, index) {
         console.log(submittedData);
         if (Object.getOwnPropertyNames(submittedData).length === 0 || submittedData.name === '') {
             return;
         }
         var newItem = {
-            id: this.state.items.length + 1,
+            id: index + 1,
             season: submittedData.season,
             date: submittedData.date,
             amount: submittedData.amount,
             name: submittedData.name,
             description: submittedData.description
         };
-        this.state.items.push(newItem);
+        return newItem;
     }
 
     modifyTable() {
@@ -54,11 +56,11 @@ export default class ExpenseTable extends React.Component {
     render() {
         return (
             <div className="text-left-align">
-                <PaginationBootstrapTable data={this.state.items} />
+                <PaginationBootstrapTable data={this.state.expenses} />
                 {/* <div>
                     <button className="btn btn-primary" onClick={this.modifyTable}>Edit</button>
                 </div> */}
-                <ExportComponent data={this.state.items} />
+                <ExportComponent data={this.state.expenses} />
                 {/* <ImportComponent importRow={row => this.addExpense(row)} /> */}
             </div>
         );
@@ -101,8 +103,8 @@ export class PaginationBootstrapTable extends React.Component {
                     deleteRow
                     selectRow={selectRowProp} >
                     <TableHeaderColumn width={'25'} dataField='id' isKey={true} dataSort={true}>#</TableHeaderColumn>
-                    <TableHeaderColumn width={'100'} dataField='season'>Season</TableHeaderColumn>
-                    <TableHeaderColumn width={'100'} dataField='date'>Date</TableHeaderColumn>
+                    <TableHeaderColumn width={'120'} dataField='season'>Season</TableHeaderColumn>
+                    <TableHeaderColumn width={'120'} dataField='date'>Date</TableHeaderColumn>
                     <TableHeaderColumn width={'75'} dataField='amount'>Amount</TableHeaderColumn>
                     <TableHeaderColumn width={'100'} dataField='name'>Name</TableHeaderColumn>
                     <TableHeaderColumn width={'150'} dataField='description'>Description</TableHeaderColumn>

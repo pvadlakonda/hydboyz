@@ -8,16 +8,29 @@ import $ from 'jquery';
 const url = 'https://api.mlab.com/api/1/databases/hydboyz/collections/expenses?apiKey=2-byIVNo-oqo6Irfu3ywY1OkJW8GY_xh'
 export default class ExpenseHome extends React.Component {
     state = {
-        submittedData: {},
-        existingData: {}
+        dbData: {}
     };
 
     componentDidMount() {
         this.loadFromDB();
     }
 
-    submitData = (fields) => {
-        this.setState({ submittedData: fields });
+    submitData(fields) {
+        $.ajax({
+            url: url,
+            data: JSON.stringify({
+                "season": fields.season,
+                "amount": fields.amount,
+                "date": fields.date,
+                "name": fields.name,
+                "description": fields.description
+            }),
+            type: "POST",
+            contentType: "application/json",
+            success: (data) => {
+                this.loadFromDB();
+            }
+        });
     }
 
     loadFromDB() {
@@ -26,7 +39,7 @@ export default class ExpenseHome extends React.Component {
             type: "GET",
             url: url,
             success: (data) => {
-                this.setState({ existingData: data })
+                this.setState({ dbData: data })
             }
         });
     }
@@ -41,7 +54,7 @@ export default class ExpenseHome extends React.Component {
                     </div>
                 </div>
                 <AddExpense submittedData={fields => this.submitData(fields)} /> <br />
-                <ExpenseTable submittedData={this.state.submittedData} existingData={this.state.existingData} />
+                <ExpenseTable dbData={this.state.dbData} />
                 {/* <MLabService mongoData={data => this.mongoData(data)} /> */}
             </div>
         );

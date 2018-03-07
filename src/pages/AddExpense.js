@@ -48,29 +48,29 @@ export default class AddExpense extends Component {
                     <div className="row justify-content-md-center">
                         <div className="col col-sm-4 form-group">
                             <label htmlFor="season">Season</label>
-                            <select className="form-control" value={this.state.season} id="season" onChange={this.handleChange}>
+                            <select className="form-control" value={this.state.season} id="season" onChange={this.handleChange} required>
                                 <option value="">Select season</option>
-                                <option value="spring2018">Spring 2018</option>
-                                <option value="summer2018">Summer 2018</option>
+                                <option value="2018 Spring">2018 Spring</option>
+                                <option value="2018 Summer">2018 Summer</option>
                             </select>
                         </div>
-                        <div className="col col-sm-2 form-group" >
+                        <div className="col-sm-2 form-group" >
                             <label htmlFor="amount">Amount</label>
-                            <input type="text" value={this.state.amount} onChange={this.handleChange} className="form-control" id="amount" placeholder="Enter Amount" />
+                            <input type="number" value={this.state.amount} onChange={this.handleChange} className="form-control" id="amount" placeholder="Enter Amount" required />
                         </div>
                         <div className="col col-sm-4 form-group">
                             <label htmlFor="date">Date</label>
-                            <DatePicker id="date" maxDate={moment()} onChange={this.handleDateChange} selected={this.state.dateObj} />
+                            <DatePicker id="date" maxDate={moment()} onChange={this.handleDateChange} selected={this.state.dateObj} required />
                         </div>
                     </div>
                     <div className="row justify-content-md-center">
                         <div className="col col-sm-4 form-group" >
                             <label htmlFor="name">Name</label>
-                            <input type="text" style={{ width: 345 }} value={this.state.name} onChange={this.handleChange} className="form-control" id="name" placeholder="Enter Name" />
+                            <input type="text" style={{ width: 345 }} value={this.state.name} onChange={this.handleChange} className="form-control" id="name" placeholder="Enter Name" required />
                         </div>
                         <div className="col col-sm-8 form-group" >
                             <label htmlFor="description">Description</label>
-                            <input type="text" value={this.state.description} onChange={this.handleChange} className="form-control" id="description" placeholder="Enter Description" />
+                            <input type="text" value={this.state.description} onChange={this.handleChange} className="form-control" id="description" placeholder="Enter Description" required />
                         </div>
                     </div>
                     <div className="text-center justify-content-md-center">
