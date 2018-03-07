@@ -103,10 +103,10 @@ export class PaginationBootstrapTable extends React.Component {
                     deleteRow
                     selectRow={selectRowProp} >
                     <TableHeaderColumn width={'25'} dataField='id' isKey={true} dataSort={true}>#</TableHeaderColumn>
+                    <TableHeaderColumn width={'100'} dataField='name'>Name</TableHeaderColumn>
+                    <TableHeaderColumn width={'75'} dataField='amount'>$</TableHeaderColumn>
                     <TableHeaderColumn width={'120'} dataField='season'>Season</TableHeaderColumn>
                     <TableHeaderColumn width={'120'} dataField='date'>Date</TableHeaderColumn>
-                    <TableHeaderColumn width={'75'} dataField='amount'>Amount</TableHeaderColumn>
-                    <TableHeaderColumn width={'100'} dataField='name'>Name</TableHeaderColumn>
                     <TableHeaderColumn width={'150'} dataField='description'>Description</TableHeaderColumn>
                 </BootstrapTable>
             </div>
