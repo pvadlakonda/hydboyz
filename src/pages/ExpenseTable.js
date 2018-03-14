@@ -107,7 +107,7 @@ export class PaginationBootstrapTable extends React.Component {
                     <TableHeaderColumn width={'75'} dataField='amount'>$</TableHeaderColumn>
                     <TableHeaderColumn width={'120'} dataField='season'>Season</TableHeaderColumn>
                     <TableHeaderColumn width={'120'} dataField='date'>Date</TableHeaderColumn>
-                    <TableHeaderColumn width={'150'} dataField='description'>Description</TableHeaderColumn>
+                    <TableHeaderColumn width={'300'} dataField='description'>Description</TableHeaderColumn>
                 </BootstrapTable>
             </div>
         );

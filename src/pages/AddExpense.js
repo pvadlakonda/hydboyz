@@ -56,7 +56,7 @@ export default class AddExpense extends Component {
                         </div>
                         <div className="col-sm-2 form-group" >
                             <label htmlFor="amount">Amount</label>
-                            <input type="number" step="any" value={this.state.amount} onChange={this.handleChange} className="form-control" id="amount" placeholder="Enter Amount" required />
+                            <input type="number" step="0.01" value={this.state.amount} onChange={this.handleChange} className="form-control" id="amount" placeholder="Enter Amount" required />
                         </div>
                         <div className="col col-sm-4 form-group">
                             <label htmlFor="date">Date</label>
