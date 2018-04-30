@@ -119,14 +119,14 @@ export class ExportComponent extends React.Component {
     render() {
         return (
             <div className="text-center justify-content-md-center" style={{ marginBottom: '10px' }}>
-                <Workbook filename="table-data.xlsx" element={<button className="btn btn-primary">Export to excel</button>}>
-                    <Workbook.Sheet data={this.props.data} name="Sheet A">
+                <Workbook filename="expenses.xlsx" element={<button className="btn btn-primary">Export to excel</button>}>
+                    <Workbook.Sheet data={this.props.data} name="Expenses">
                         <Workbook.Column label="ID" value="id" />
                         <Workbook.Column label="Season" value="season" />
                         <Workbook.Column label="Date" value="date" />
-                        <Workbook.Column label="Amount" value="id" />
-                        <Workbook.Column label="Name" value="season" />
-                        <Workbook.Column label="Description" value="date" />
+                        <Workbook.Column label="Amount" value="amount" />
+                        <Workbook.Column label="Name" value="name" />
+                        <Workbook.Column label="Description" value="description" />
                     </Workbook.Sheet>
                 </Workbook>
             </div>
